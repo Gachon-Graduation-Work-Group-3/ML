@@ -4,3 +4,5 @@ random_forest_model.pkl
 # Python cache
 __pycache__/
 *.py[cod]
+
+.DS_Store
