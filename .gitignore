@@ -6,6 +6,8 @@ cars.csv
 cars_processed.csv
 saled_cars.csv
 
+data.py
+
 # Python cache
 __pycache__/
 *.py[cod]

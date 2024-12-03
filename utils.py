@@ -43,17 +43,11 @@ def engine(x):
 
 def guar(str1):
     if str1=='만료' or str1=='불가':
-        return pd.Series([0,0,0])
-    elif str1=='정보없음':
-        return pd.Series([np.nan,np.nan,np.nan])
+        return 0
+    elif str1=='정보없음' or pd.isna(str1):
+        return 1
     else:
-        index=str1.find('/')
-        if index==-1:
-            time=0
-        else:
-            time=int(str1[:index-3].strip())
-        km=str1[index+1:].replace(",","")[:-2].strip()
-        return pd.Series([1,time,km])
+        return 2
     
 def clean_distance(x):
     if pd.isna(x):  # NaN 값 처리
@@ -77,12 +71,21 @@ def parse_date(date_str):
     # 상대적인 날짜 (예: "5일전")
     if "일전" in date_str:
         days_ago = int(date_str.replace("일전", "").strip("[]").replace("'", ""))  # "5" 추출
-        return pd.Timestamp.today() - timedelta(days=days_ago)
+        string = str(pd.Timestamp.today() - timedelta(days=days_ago))
+        year=int(string[:4])
+        month=int(string[5:7])
+        n=(2024 + 12/12) - (year + month/12)
+        return float(n)
     
     # 절대적인 날짜 (예: "15.12.24")
     else:
         try:
-            return pd.to_datetime(date_str.strip("[]").replace("'", ""), format="%y.%m.%d")
+            string = str(pd.to_datetime(date_str.strip("[]").replace("'", ""), format="%y.%m.%d"))
+            year=int(string[:4])
+            month=int(string[5:7])
+            n=(2024 + 12/12) - (year + month/12)
+            return float(n)
         except ValueError:
-            return pd.NaT  # 오류 발생시 NaT 반환
+            return float('nan')
+        
 
