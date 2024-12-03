@@ -1,12 +1,11 @@
 venv/
-random_forest_model.pkl
-XGBoost_model.pkl
+xgboost/model/XGBoost_model.pkl
 
-cars.csv
-cars_processed.csv
-saled_cars.csv
+xgboost/model/data
+xgboost/model/data.py
 
-data.py
+xgboost/data/cars_processed.csv
+xgboost/data/cars.csv
 
 # Python cache
 __pycache__/

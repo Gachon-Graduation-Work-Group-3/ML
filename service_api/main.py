@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+import sys
+sys.path.append('./xgboost')
+
 from utils import changeyear, parse_date
 from joblib import load
 import pandas as pd
@@ -14,7 +17,7 @@ class Car(BaseModel):
     comp : float
 
 app = FastAPI()
-model = load('XGBoost_model.pkl')
+model = load('xgboost/model/XGBoost_model.pkl')
 feature_names = model.get_booster().feature_names
 
 @app.post("/price/prediction")

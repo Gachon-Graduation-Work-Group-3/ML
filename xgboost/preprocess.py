@@ -11,7 +11,7 @@ scaler = MinMaxScaler()
 plt.rcParams['font.family'] = 'AppleGothic'
 plt.rcParams['axes.unicode_minus'] = False
 
-data = 'cars.csv'
+data = 'xgboost/data/cars.csv'
 df = pd.read_csv(data)
 
 matchfuel={'디젤':0, 'LPG':1, '가솔린':2, '가솔린 하이브리드':3,'가솔린/LPG겸용':4 ,'전기':5, 'LPG 하이브리드':6, '수소':7, '가솔린/CNG겸용':8}
@@ -64,7 +64,7 @@ print(df['가격'].describe())
 #필요없는 정보 삭제
 df = df.drop(labels=['연료','보증정보','소유자변경','설명글', '링크', '색상','후측방경보','네비게이션(비순정)','자동주차','선루프','파노라마선루프','열선시트(앞좌석)','열선시트(뒷좌석)','동승석에어백','후방센서','전방센서','후방카메라','열선핸들','오토라이트','크루즈컨트롤','전손','침수전손','침수분손','도난','판금','부식', '내차피해_횟수', '내차피해_금액', '타차가해_횟수', '타차가해_금액', '최대토크', '교환', '보험처리수' ,'전방카메라', '어라운드뷰','네비게이션(순정)','불법구조변경', '사고침수유무'], axis=1)
 df = df.fillna(0)
-df.to_csv('cars_processed.csv')
+df.to_csv('xgboost/data/cars_processed.csv')
 
 na_check = df.isna().sum()
 

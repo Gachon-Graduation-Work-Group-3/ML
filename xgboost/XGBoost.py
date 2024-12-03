@@ -19,9 +19,9 @@ scaler = MinMaxScaler()
 matplotlib.rcParams['font.family'] = 'AppleGothic'
 matplotlib.rcParams['axes.unicode_minus'] = False
 
-model_filename = 'XGBoost_model.pkl'
+model_filename = 'xgboost/model/XGBoost_model.pkl'
 
-data = 'cars_processed.csv'
+data = 'xgboost/data/cars_processed.csv'
 df = pd.read_csv(data, index_col=0)
 df = df.select_dtypes('number')
 
@@ -35,12 +35,12 @@ sns.heatmap(correlation)
 plt.show()
 
 # 모델 학습
-model = XGBRegressor(n_estimators=980,
+model = XGBRegressor(n_estimators=1000,
                      max_depth=6,
                      learning_rate=0.04,
                      subsample=0.8,
                      colsample_bytree=0.8,
-                     gamma=0.)
+                     gamma=0.4)
 model.fit(X_train, y_train)
 
 # 훈련 데이터 예측
