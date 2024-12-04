@@ -17,7 +17,7 @@ class Car(BaseModel):
     comp : float
 
 app = FastAPI()
-model = load('xgboost/model/XGBoost_model.pkl')
+model = load('/model/XGBoost_model.pkl')
 feature_names = model.get_booster().feature_names
 
 @app.post("/price/prediction")

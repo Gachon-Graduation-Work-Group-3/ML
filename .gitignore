@@ -1,5 +1,6 @@
 venv/
 xgboost/model/XGBoost_model.pkl
+service_api/model/XGBoost_model.pkl
 
 xgboost/model/data
 xgboost/model/data.py
