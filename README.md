@@ -17,7 +17,7 @@
 |comp|신차대비가격(중고가격/신차가격*100)|Float|
 
 # Performance
-|Project|Accuracy|RMSE|MSE|Average Difference|
+|Project|Accuracy|Train RMSE|Test RMSE|Average Difference|
 |:---:|:---:|:---:|:---:|:---:|
 |국산 중고 자동차 가격 예측 및영향요인 분석|X|0.0348|0.0790|165만원|
 |**When Your Car**|**0.91**|**0.0325**|**0.0756**|**131만원**|
