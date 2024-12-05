@@ -16,6 +16,7 @@ class Car(BaseModel):
     date : str
     view : int
     new_price : int
+    brand : int
 
 app = FastAPI()
 model = load('xgboost/model/XGBoost_model.pkl')
@@ -33,7 +34,8 @@ async def price_prediction(
         "최고출력": car.high_out,
         "최초등록일" : parse_date(car.date),
         "조회수" : car.view,
-        "신차가격" : car.new_price
+        "신차가격" : car.new_price,
+        "브랜드": car.brand
     }
     car_data_df = pd.DataFrame([data])
     car_data_df = car_data_df[feature_names]
