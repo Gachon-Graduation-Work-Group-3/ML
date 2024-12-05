@@ -26,13 +26,9 @@ df = pd.read_csv(data, index_col=0)
 df = df.select_dtypes('number')
 
 X_columns = df.columns.to_numpy()
-X = df[X_columns].drop(labels=['가격'], axis=1)
-y = df['가격']
+X = df[X_columns].drop(labels=['가격비율'], axis=1)
+y = df['가격비율']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-correlation = df.corr()
-sns.heatmap(correlation)
-plt.show()
 
 # 모델 학습
 model = XGBRegressor(n_estimators=1000,
@@ -40,7 +36,7 @@ model = XGBRegressor(n_estimators=1000,
                      learning_rate=0.04,
                      subsample=0.8,
                      colsample_bytree=0.8,
-                     gamma=0.4)
+                     gamma=0)
 model.fit(X_train, y_train)
 
 # 훈련 데이터 예측
@@ -70,14 +66,14 @@ plt.show()
 joblib.dump(model, model_filename)
 
 # SHAP 값 계산
-#explainer = shap.TreeExplainer(model)
-#shap_values = explainer.shap_values(X_test)
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_test)
 
 # SHAP Summary Plot
-#shap.summary_plot(shap_values, X_test, plot_type="bar")
+shap.summary_plot(shap_values, X_test, plot_type="bar")
 
 # SHAP Force Plot (개별 예측에 대한 설명)
-#shap.force_plot(explainer.expected_value, shap_values[0, :], X_test.iloc[0, :])
+shap.force_plot(explainer.expected_value, shap_values[0, :], X_test.iloc[0, :])
 
 # 모델 성능 평가
 print(f"\n모델 성능 평가:")

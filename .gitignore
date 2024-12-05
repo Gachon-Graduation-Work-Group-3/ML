@@ -7,6 +7,7 @@ xgboost/model/data.py
 
 xgboost/data/cars_processed.csv
 xgboost/data/cars.csv
+xgboost/data/cars_prep.csv
 
 # Python cache
 __pycache__/

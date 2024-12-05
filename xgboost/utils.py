@@ -68,24 +68,9 @@ def process_price(x):
 
 def parse_date(date_str):
     date_str = str(date_str)
-    # 상대적인 날짜 (예: "5일전")
-    if "일전" in date_str:
-        days_ago = int(date_str.replace("일전", "").strip("[]").replace("'", ""))  # "5" 추출
-        string = str(pd.Timestamp.today() - timedelta(days=days_ago))
-        year=int(string[:4])
-        month=int(string[5:7])
-        n=(2024 + 12/12) - (year + month/12)
-        return float(n)
-    
-    # 절대적인 날짜 (예: "15.12.24")
-    else:
-        try:
-            string = str(pd.to_datetime(date_str.strip("[]").replace("'", ""), format="%y.%m.%d"))
-            year=int(string[:4])
-            month=int(string[5:7])
-            n=(2024 + 12/12) - (year + month/12)
-            return float(n)
-        except ValueError:
-            return float('nan')
+    date = date_str.split('/')
+    year=int(date[0])
+    month=int(date[1])
+    n=(24 + 12/12) - (year + month/12)
+    return float(n)
         
-

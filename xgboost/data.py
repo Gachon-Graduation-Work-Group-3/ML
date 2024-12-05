@@ -12,7 +12,7 @@ data = 'xgboost/data/cars_processed.csv'
 df = pd.read_csv(data, index_col=0,)
 df = df.select_dtypes('number')
 
-correlation_with_price = df.corr()['가격'].sort_values(ascending=False)
+correlation_with_price = df.corr()['신차대비가격'].sort_values(ascending=False)
 
 # 히트맵 시각화
 plt.figure(figsize=(8, 6))
@@ -21,3 +21,5 @@ plt.title("Correlation Heatmap with All Variables")
 plt.xticks(fontsize=5)  # x축 글씨 크기
 plt.yticks(fontsize=5)  # y축 글씨 크기
 plt.show()
+
+print(df['가격'].mean())
