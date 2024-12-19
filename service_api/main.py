@@ -6,6 +6,23 @@ from utils import changeyear, parse_date
 from joblib import load
 import pandas as pd
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
+
+app = FastAPI()
+
+origins = [
+    "http://localhost:3000",  # React 개발 서버
+]
+
+# CORS 미들웨어 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,        # 허용할 Origin 목록
+    allow_credentials=True,       # 인증 정보 (쿠키) 허용 여부
+    allow_methods=["*"],          # 모든 HTTP 메서드 허용
+    allow_headers=["*"],          # 모든 HTTP 헤더 허용
+)
 
 class Car(BaseModel):
     age : str
@@ -18,8 +35,7 @@ class Car(BaseModel):
     new_price : int
     brand : int
 
-app = FastAPI()
-model = load('xgboost/model/XGBoost_model.pkl')
+model = load('model/XGBoost_model.pkl')
 feature_names = model.get_booster().feature_names
 
 @app.post("/price/prediction")

@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from datetime import timedelta
+from datetime import datetime
+
 
 def changemodel(str1):
     index1=str1.find(' ')
@@ -73,4 +75,33 @@ def parse_date(date_str):
     month=int(date[1])
     n=(24 + 12/12) - (year + month/12)
     return float(n)
-        
+
+def parse_age(age_str):
+    age_str = str(age_str)
+    if not age_str or age_str == '0':
+        return np.nan
+    
+    
+    # Check if the age_str is in "dd/mm/yy" format
+    if '/' in age_str:
+        parts = age_str.split('/')
+        # Ensure the format is "dd/mm/yy"
+        if len(parts) == 3:
+            try:
+                # Adjust the format to "yyyy-mm-dd"
+                age_str = f"20{parts[2]}-{parts[1]}"
+            except ValueError:
+                return np.nan  # Return NaN if the format is incorrect
+    
+    # Handle age_str in "yyyy.mm" format
+    elif '.' in age_str:
+        parts = age_str.split('.')
+        if int(parts[0]) == 0:
+            return np.nan  # Return NaN if the year is "00"
+        elif int(parts[1]) == 0:
+            age_str = f"{parts[0]}-01"
+        else:
+            age_str = f"{parts[0]}-{int(parts[1]):02d}"  # Ensure month is two digits
+
+
+    return datetime.strptime(age_str, "%Y-%m")  

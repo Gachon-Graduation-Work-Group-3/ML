@@ -22,4 +22,3 @@ plt.xticks(fontsize=5)  # x축 글씨 크기
 plt.yticks(fontsize=5)  # y축 글씨 크기
 plt.show()
 
-print(df['가격'].mean())
